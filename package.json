@@ -1,0 +1,38 @@
+{
+  "name": "google-translate-console",
+  "version": "0.0.2",
+  "description": "use google translate from console",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "test": "jest",
+    "r": "npm run build && npm run start",
+    "preinstall": "./enter_apikey.sh",
+    "postinstall": "npm run build"
+  },
+  "keywords": [
+    "translate",
+    "console",
+    "nodejs",
+    "google",
+    "api",
+    "terminal",
+    "cli"
+  ],
+  "bin": {
+    "tr": "translate.sh"
+  },
+  "author": "Peter Kiss",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^1.7.3"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^1.6.7"
+  },
+  "repository": "github:ypetya/google-translate-console",
+  "bugs": {
+    "url": "https://github.com/ypetya/google-translate-console/issues"
+  }
+}
