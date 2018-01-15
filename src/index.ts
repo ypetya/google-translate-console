@@ -1,31 +1,39 @@
 import fetch, { Headers } from 'node-fetch';
-import API_KEY from './api.key';
+import configure from './configure';
 
-let [nodePath, jsPath, ...args] = process.argv;
+configure((config) => {
+    const API_KEY = config('apiKey');
 
-if (args.length > 0) {
-    translate(args.join(' '));
-} else {
-    console.log(`Usage: ${nodePath} ${jsPath} <text to translate>`);
-}
+    let [nodePath, jsPath, ...args] = process.argv;
 
-function translate(text: string) {
-    const params = JSON.stringify({
-        "format": "text",
-        "q": [text],
-        "target": "hu"
-    });
+    if (args.length > 0) {
+        translate(args.join(' '));
+    } else {
+        console.log(`Usage: ${nodePath} ${jsPath} <text to translate>`);
+    }
 
-    fetch(`https://translation.googleapis.com/language/translate/v2?key=${API_KEY}`,
-        {
-            method: 'POST',
-            body: params
-        }).then(resp => resp.json())
-        .then(d => {
-            const { detectedSourceLanguage, translatedText } = d.data.translations[0];
-            console.log(`${detectedSourceLanguage}: ${translatedText}`);
-        })
-        .catch(err => {
-            console.error(err);
+    function translate(text: string) {
+        const params = JSON.stringify({
+            "format": "text",
+            "q": [text],
+            "target": config('lang')
         });
-}
+
+        fetch(`https://translation.googleapis.com/language/translate/v2?key=${API_KEY}`,
+            {
+                method: 'POST',
+                body: params
+            }).then(resp => {
+                //console.log(`${resp.status}: ${resp.statusText}`);
+                return resp.json();
+            })
+            .then(d => {
+                const { detectedSourceLanguage, translatedText } = d.data.translations[0];
+                console.log(`${detectedSourceLanguage}: ${translatedText}`);
+                process.exit(0);
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }
+});
