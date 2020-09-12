@@ -3,7 +3,8 @@ Installation
 
 `npm install -g google-translate-console`
 
-You can setup the target language (and API key) anytime in the config file : `~/.google-translate-console.apiKey`
+The configuration is read from the console at first time execution.
+You can change the target language (and API key) anytime in the config file : `~/.google-translate-console.apiKey`
 
 Usage
 -----
@@ -17,4 +18,5 @@ en: ez egy teszt
 Output format
 -------------
 
-<detectedLanguage>: <translated text>
+`<detectedLanguage>: <translated text>`
+
