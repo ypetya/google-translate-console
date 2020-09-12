@@ -1,6 +1,6 @@
 {
   "name": "google-translate-console",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "use google translate from console",
   "main": "index.js",
   "scripts": {
